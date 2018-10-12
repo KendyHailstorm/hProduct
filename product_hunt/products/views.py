@@ -6,9 +6,10 @@ from django.utils import timezone
 # Create your views here.
 
 def home(request):
-    return render(request,'products/home.html')
+    products = Product.objects
+    return render(request,'products/home.html',{'products':products})
 
-@login_required
+@login_required(login_url="/accounts/signup")
 def create(request):
 
     if request.method =='POST':
@@ -43,7 +44,7 @@ def detail(request, product_id):
 
 
 
-@login_required
+@login_required(login_url="/accounts/signup")
 def upvote(request, product_id):
 
     if request.method =='POST':
